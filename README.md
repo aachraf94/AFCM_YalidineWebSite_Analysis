@@ -37,7 +37,6 @@ Ce projet a pour objectif d'analyser les réponses d'un questionnaire portant su
 - **Python**
   - Pandas
 - **R** (version 4.0 ou supérieure)
-- Packages R nécessaires :
   - FactoMineR
   - factoextra
   - ggplot2
