@@ -76,17 +76,33 @@ print(res_mca$var$coord)
 print("Qualité de représentation des questions")
 print(res_mca$var$cos2)
 
-# Étape 11 : Croiser 2 questions (au choix) pour un tableau de contingence-------------------------------------------
-table_contingence <- table(data$Sexe, data$Freq_Utilisation)
-print("Tableau de contingence : Sexe vs Fréquence d'utilisation")
+# Étape 11 : Croiser 2 questions pour un tableau de contingence-------------------------------------------
+# Utiliser UX_mobile_note et Freq_Utilisation pour le tableau de contingence
+table_contingence <- table(data$UX_mobile_note, data$Freq_Utilisation)
+
+# Renommer les modalités des lignes
+rownames(table_contingence) <- c(
+  "UX_mobile_note_1",
+  "UX_mobile_note_2",
+  "UX_mobile_note_3",
+  "UX_mobile_note_4",
+  "UX_mobile_note_5"
+)
+
+# Afficher le tableau de contingence avec les nouveaux noms
+print("Tableau de contingence : UX_mobile_note vs Fréquence d'utilisation (avec noms personnalisés)")
 print(table_contingence)
+
+# Save the disjunctive table to a CSV file
+write.csv(table_contingence, file = "Data/Output3_Disjointif_AFC_Freq-UX_note_MatriceZ.csv", row.names = FALSE)
 
 # Étape 12 : Effectuer une AFC sur le tableau de contingence----------------------------------------------------------
 res_ca <- CA(table_contingence, graph = FALSE)
+summary(res_ca)
 
 # Visualiser les résultats de l'AFC
 fviz_ca_biplot(res_ca, repel = TRUE)
 
 # Étape 13 : Visualisations additionnelles avec factoextra--------------------------------------------------------------
 fviz_mca_var(res_mca, geom = "arrow", gradient.cols = c("blue", "red"))
-fviz_mca_ind(res_mca, geom = "point", col.ind = data$Sexe, palette = c("blue", "red"))
+fviz_mca_ind(res_mca, geom = "point", col.ind = data$UX_mobile_note, palette = c("blue", "red"))
